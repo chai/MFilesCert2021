@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using MFiles.VAF.Configuration;
+using MFiles.VAF.Configuration.JsonAdaptor;
+using MFilesAPI;
+
+namespace Acme.Corporation.Storata.Chai.Nge
+{
+    [DataContract]
+    public class Configuration
+    {
+        [DataMember]
+        [JsonConfEditor(DefaultValue = false, Label = "Application Enabled")]
+        public bool ApplicationEnabled { get; set; }
+
+        [DataMember]
+        [MFValueListItem(AllowEmpty = false)]
+        public MFIdentifier HubDesignState { get; set; }
+
+        [MFValueList]
+        [JsonConfEditor(Label = "Hubshare Hub state list")]
+        [DataMember]
+        public MFIdentifier HubStatusList { get; set; }
+
+        [DataMember]
+        [MFPropertyDef(Datatypes = new MFDataType[] { MFDataType.MFDatatypeLookup })]
+        public MFIdentifier HubStateProperty { get; set; }
+
+        [MFClass(Required = true)]
+        [DataMember]
+        public MFIdentifier MyClass { get; set; }
+            = "MFiles.Class.PurchaseOrder";
+
+
+
+        [MFPropertyDef(Required = true)]
+        [DataMember]
+        public MFIdentifier MyPropertyDefinition { get; set; }
+            = "MFiles.PropertyDef.PurchaseOrderNumber";
+
+
+        	
+
+		[MFWorkflow]
+        [JsonConfEditor(Label = "Object Workflow")]
+        [DataMember]
+        public MFIdentifier Workflow { get; set; }
+
+
+
+        [MFState]
+        [DataMember]
+        [JsonConfEditor(Label = "State")]
+        public MFIdentifier State { get; set; }
+        [MFStateTransition]
+
+        [DataMember]
+        [JsonConfEditor(Label = "Transitions")]
+        public List<MFIdentifier> Transitions { get; set; }
+
+
+        [MFValueList(Required = true)]
+
+        public MFIdentifier CountriesValueList = "MFiles.ValueList.Countries";
+
+
+
+        /// <summary> Refers to an item in a value list in the vault. </summary>
+
+        /// <remarks> Use its GUID instead. </remarks>
+
+        [MFValueListItem(Required = true, ValueList = "MFiles.ValueList.Countries")]
+
+        public MFIdentifier UnitedKingdomCountryValueList
+
+            = "{2F7A844E-1E91-41DA-8EA8-80A31A4BCD41}";
+
+
+        /// <summary> Refers to a named access control list in the vault. </summary>
+        [MFNamedACL(Required = true)]
+        public MFIdentifier OnlyForMeNamedAccessControlList = "MFiles.NamedACL.OnlyForMe";
+
+        /// <summary> Refers to a user group in the vault. </summary>
+        [MFUserGroup(Required = true)]
+        public MFIdentifier FinanceUserGroup = "MFiles.UserGroup.FinanceUsers";
+
+        /// <summary> Refers to a view in the vault. </summary>
+        /// <remarks> This is the view's Id, as shown in its properties dialog. </remarks>
+        [MFView(Required = true)]
+        public MFIdentifier CustomersView = 142;
+    }
+}
