@@ -14,6 +14,50 @@ namespace Acme.Corporation.Storata.Chai.Nge
         [JsonConfEditor(DefaultValue = false, Label = "Application Enabled")]
         public bool ApplicationEnabled { get; set; }
 
+
+
+        [DataMember]
+        [MFUserGroup(Required = true)]
+        public MFIdentifier ContractManagersUserGroup
+	    = "MF.UG.ContractManagers";
+
+        [DataMember]
+        [MFUserGroup(Required = true)]
+        public MFIdentifier ExecutiveManagersUserGroup
+        = "MF.UG.ExecutiveManagement";
+
+
+        [DataMember]
+        [MFValueListItem(Required = true, ValueList = "MF.VL.Role")]
+        public MFIdentifier ContractManagerRole { get; set; }
+        = "{F0D28476-F58D-440F-8E65-D3A58AA916C9}";
+
+        [DataMember]
+        [MFValueListItem(Required = true, ValueList = "MF.VL.Role")]
+        public MFIdentifier ExecutiveManagementRole { get; set; }
+            = "{9A9A3642-6E0F-4817-BFFF-4A7A14F7C000}";
+
+
+
+
+
+        
+        [MFClass(Required = true)]
+        [DataMember]
+        public MFIdentifier ClassDeliveryAgreement { get; set; }
+            = "MF.CL.DeliveryAgreement";
+
+
+
+        [MFClass(Required = true)]
+        [DataMember]
+        public MFIdentifier ClassSupplierAgreement { get; set; }
+        = "MF.CL.SupplierAgreement";
+
+
+
+
+
         [DataMember]
         [MFValueListItem(AllowEmpty = false)]
         public MFIdentifier HubDesignState { get; set; }

@@ -14,7 +14,7 @@ namespace Acme.Corporation.Storata.Chai.Nge
     /// The entry point for this Vault Application Framework application.
     /// </summary>
     /// <remarks>Examples and further information available on the developer portal: http://developer.m-files.com/. </remarks>
-    public class VaultApplication
+    public partial class VaultApplication
         : ConfigurableVaultApplicationBase<Configuration>
     {
 
@@ -27,12 +27,12 @@ namespace Acme.Corporation.Storata.Chai.Nge
         {
             return "Developer Certification VAF for Chai Nge";
         }
-        protected override void OnConfigurationUpdated(IConfigurationRequestContext context, ClientOperations clientOps, Configuration oldConfiguration)
-        {
-            base.OnConfigurationUpdated(context, clientOps, oldConfiguration);
+        //protected override void OnConfigurationUpdated(IConfigurationRequestContext context, ClientOperations clientOps, Configuration oldConfiguration)
+        //{
+        //    base.OnConfigurationUpdated(context, clientOps, oldConfiguration);
 
 
-        }
+        //}
 
         public override void StartOperations(Vault vaultPersistent)
         {        
