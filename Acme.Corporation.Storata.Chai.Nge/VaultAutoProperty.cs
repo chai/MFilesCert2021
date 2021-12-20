@@ -22,25 +22,64 @@ namespace Acme.Corporation.Storata.Chai.Nge
         End If
         Output = szDocumentTitle
          */
-        [PropertyCustomValue("PD.Signed Quotes Title")]
+
+        private string SignQuotesTitle(ObjVerEx objVerEx)
+        {
+            if (false == this.Configuration.TxtPropertySubject.IsResolved)
+            {
+                throw new NotFoundException();
+            }
+            return $"{objVerEx.GetPropertyText(MFBuiltInPropertyDef.MFBuiltInPropertyDefClass)} - {objVerEx.GetPropertyText(Configuration.TxtPropertySubject)}";
+        }
+
+        [PropertyCustomValue("MF.PD.ContractTitle")]
         public TypedValue ContractTitle(PropertyEnvironment env)
         {
+            var _typevalue = new TypedValue();
+
+            var _objVerEx = env.ObjVerEx;
+            var _szDocumentTitle = string.Empty;
+
             try
             {
-                var typevalue = new TypedValue();
+
                 if (env.ObjVerEx.Class==Configuration.ClassDeliveryAgreement)
                 {
+                    //1034 = MF.PD.Subject
+                    //1027 = MF.PD.Customer
+                    if (false == this.Configuration.SelectMPropertyCustomer.IsResolved)
+                    {
+                    return    _typevalue;
+                    }
+                    
+                    _szDocumentTitle = $"{SignQuotesTitle(_objVerEx)} - {_objVerEx.GetPropertyText(Configuration.SelectMPropertyCustomer)}";                                           
 
                 }
- 
+                else if (env.ObjVerEx.Class == Configuration.ClassSupplierAgreement)
+                {
+
+                    //1042 = MF.PD.Supplier
+                    if (false == this.Configuration.SelectMPropertySupplier.IsResolved)
+                    {
+                        return _typevalue;
+                    }
+                    _szDocumentTitle = $"{SignQuotesTitle(_objVerEx)} - {_objVerEx.GetPropertyText(Configuration.SelectMPropertySupplier)}";
+                }
+
             }
             catch (Exception ex)
             {
 
-                SysUtils.ReportErrorToEventLog($"ContractTitle { env.ObjVerEx } - {env.ObjVerEx.Title}", ex);
+                SysUtils.ReportErrorToEventLog($"ContractTitle { _objVerEx } - {_objVerEx.Title}", ex);
             }
 
-            return typevalue;
+
+
+
+             _typevalue.SetValue(MFDataType.MFDatatypeText, _szDocumentTitle);
+            
+            //_objVerEx.SetModifiedBy(env.CurrentUserID);
+            return _typevalue;
         }
     }
 }

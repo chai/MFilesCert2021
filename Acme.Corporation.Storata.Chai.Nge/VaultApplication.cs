@@ -34,18 +34,18 @@ namespace Acme.Corporation.Storata.Chai.Nge
 
         //}
 
-        public override void StartOperations(Vault vaultPersistent)
-        {        
-            base.StartOperations(vaultPersistent);
-        }
+        //public override void StartOperations(Vault vaultPersistent)
+        //{        
+        //    base.StartOperations(vaultPersistent);
+        //}
 
-        protected override IEnumerable<ValidationFinding> CustomValidation(Vault vault, Configuration config)
+        //protected override IEnumerable<ValidationFinding> CustomValidation(Vault vault, Configuration config)
 
-        {
+        //{
 
-            return base.CustomValidation(vault, config);
+        //    return base.CustomValidation(vault, config);
 
-        }
+        //}
 
 
 
