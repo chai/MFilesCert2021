@@ -3,13 +3,13 @@
 			type="server-application"
 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			xsi:noNamespaceSchemaLocation="http://www.m-files.com/schemas/appdef-server-v3.xsd">
-  <guid>27f40366-9e9e-44de-87b3-20bbee207a4a</guid>
+  <guid>27f40366-9e9e-44de-87b3-20bbee207a3b</guid>
   <name>Acme.Corporation.Storata.Chai.Nge</name>
   <description></description>
   <publisher></publisher>
-  <version>0.1.2</version>
+  <version>0.1.3</version>
   <copyright></copyright>
-  <required-mfiles-version>20.5.0.0</required-mfiles-version>
+  <required-mfiles-version>21.11.0.0</required-mfiles-version>
   <multi-server-compatible>false</multi-server-compatible>
   <extension-objects>
     <extension-object>

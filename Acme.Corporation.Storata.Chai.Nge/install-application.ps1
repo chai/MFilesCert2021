@@ -10,7 +10,7 @@ $null = [System.Reflection.Assembly]::LoadWithPartialName("Interop.MFilesAPI")
 
 # Application details
 $appFilePath = "bin\Debug\Acme.Corporation.Storata.Chai.Nge.mfappx"
-$appGuid = "27f40366-9e9e-44de-87b3-20bbee207a4a"
+$appGuid = "27f40366-9e9e-44de-87b3-20bbee207a3b"
 
 # Target vault
 $vaultName = "Developer Certificate"

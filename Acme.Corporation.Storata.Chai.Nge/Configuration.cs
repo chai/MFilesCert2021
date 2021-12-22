@@ -14,8 +14,6 @@ namespace Acme.Corporation.Storata.Chai.Nge
         [JsonConfEditor(DefaultValue = false, Label = "Application Enabled")]
         public bool ApplicationEnabled { get; set; }
 
-
-
         [MFUserGroup(Required = true)]
         public MFIdentifier ContractManagersUserGroup
 	    = "MF.UG.ContractManagers";
@@ -24,7 +22,6 @@ namespace Acme.Corporation.Storata.Chai.Nge
         public MFIdentifier ExecutiveManagersUserGroup
         = "MF.UG.ExecutiveManagement";
 
-
         [MFValueListItem(Required = true, ValueList = "MF.VL.Role")]
         public MFIdentifier ContractManagerRole { get; set; }
         = "{F0D28476-F58D-440F-8E65-D3A58AA916C9}";
@@ -32,37 +29,26 @@ namespace Acme.Corporation.Storata.Chai.Nge
         [MFValueListItem(Required = true, ValueList = "MF.VL.Role")]
         public MFIdentifier ExecutiveManagementRole { get; set; }
             = "{9A9A3642-6E0F-4817-BFFF-4A7A14F7C000}";
-
-
-
-
-
         
         [MFClass(Required = true)]
         public MFIdentifier ClassDeliveryAgreement { get; set; }
             = "MF.CL.DeliveryAgreement";
 
-
-
         [MFClass(Required = true)]
         public MFIdentifier ClassSupplierAgreement { get; set; }
         = "MF.CL.SupplierAgreement";
-
-
-
-        
-
+      
         [MFPropertyDef(Required = true)]
         public MFIdentifier TxtPropertySubject { get; set; }
             = "MF.PD.Subject";
 
         [MFPropertyDef(Required = true)]
         public MFIdentifier SelectMPropertyCustomer { get; set; }
-    = "MF.PD.Customer";
+        = "MF.PD.Customer";
 
         [MFPropertyDef(Required = true)]
         public MFIdentifier SelectMPropertySupplier { get; set; }
-    = "MF.PD.Supplier";
+        = "MF.PD.Supplier";
 
 
   //      [DataMember]

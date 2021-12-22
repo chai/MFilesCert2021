@@ -35,6 +35,8 @@ namespace Acme.Corporation.Storata.Chai.Nge
         [PropertyCustomValue("MF.PD.ContractTitle")]
         public TypedValue ContractTitle(PropertyEnvironment env)
         {
+
+
             var _typevalue = new TypedValue();
 
             var _objVerEx = env.ObjVerEx;
@@ -51,7 +53,7 @@ namespace Acme.Corporation.Storata.Chai.Nge
                     {
                     return    _typevalue;
                     }
-                    
+
                     _szDocumentTitle = $"{SignQuotesTitle(_objVerEx)} - {_objVerEx.GetPropertyText(Configuration.SelectMPropertyCustomer)}";                                           
 
                 }
