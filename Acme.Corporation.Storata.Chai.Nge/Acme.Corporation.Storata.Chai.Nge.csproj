@@ -74,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VaultApplication.cs" />
     <Compile Include="VaultAutoProperty.cs" />
+    <Compile Include="VaultEventHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="appdef.xml">

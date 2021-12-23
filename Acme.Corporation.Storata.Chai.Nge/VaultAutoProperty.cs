@@ -25,11 +25,11 @@ namespace Acme.Corporation.Storata.Chai.Nge
 
         private string SignQuotesTitle(ObjVerEx objVerEx)
         {
-            if (false == this.Configuration.TxtPropertySubject.IsResolved)
+            if (false == this.Configuration.SubjectTxtProperty.IsResolved)
             {
                 throw new NotFoundException();
             }
-            return $"{objVerEx.GetPropertyText(MFBuiltInPropertyDef.MFBuiltInPropertyDefClass)} - {objVerEx.GetPropertyText(Configuration.TxtPropertySubject)}";
+            return $"{objVerEx.GetPropertyText(MFBuiltInPropertyDef.MFBuiltInPropertyDefClass)} - {objVerEx.GetPropertyText(Configuration.SubjectTxtProperty)}";
         }
 
         [PropertyCustomValue("MF.PD.ContractTitle")]
@@ -45,27 +45,27 @@ namespace Acme.Corporation.Storata.Chai.Nge
             try
             {
 
-                if (env.ObjVerEx.Class==Configuration.ClassDeliveryAgreement)
+                if (env.ObjVerEx.Class==Configuration.DeliveryAgreementClass)
                 {
                     //1034 = MF.PD.Subject
                     //1027 = MF.PD.Customer
-                    if (false == this.Configuration.SelectMPropertyCustomer.IsResolved)
+                    if (false == this.Configuration.CustomerSelectMProperty.IsResolved)
                     {
                     return    _typevalue;
                     }
 
-                    _szDocumentTitle = $"{SignQuotesTitle(_objVerEx)} - {_objVerEx.GetPropertyText(Configuration.SelectMPropertyCustomer)}";                                           
+                    _szDocumentTitle = $"{SignQuotesTitle(_objVerEx)} - {_objVerEx.GetPropertyText(Configuration.CustomerSelectMProperty)}";                                           
 
                 }
-                else if (env.ObjVerEx.Class == Configuration.ClassSupplierAgreement)
+                else if (env.ObjVerEx.Class == Configuration.SupplierAgreementClass)
                 {
 
                     //1042 = MF.PD.Supplier
-                    if (false == this.Configuration.SelectMPropertySupplier.IsResolved)
+                    if (false == this.Configuration.SupplierSelectMProperty.IsResolved)
                     {
                         return _typevalue;
                     }
-                    _szDocumentTitle = $"{SignQuotesTitle(_objVerEx)} - {_objVerEx.GetPropertyText(Configuration.SelectMPropertySupplier)}";
+                    _szDocumentTitle = $"{SignQuotesTitle(_objVerEx)} - {_objVerEx.GetPropertyText(Configuration.SupplierSelectMProperty)}";
                 }
 
             }
