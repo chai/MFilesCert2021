@@ -14,14 +14,15 @@ namespace Acme.Corporation.Storata.Chai.Nge
 
         public void CheckForRoles(EventHandlerEnvironment env)
         {
-    
+
             //Applied only to Person class, normally would apply via Attribute 
             //e.g.         [EventHandler(MFEventHandlerType.MFEventHandlerAfterCheckInChangesFinalize, ObjectType = "F.OT.Person", Class = "Class Alias")]
             //but as we're not changing anything in the vault, including adding alia
             //we're setting up a manual check
-
-            if (env.ObjVerEx.GetPropertyText(MFBuiltInPropertyDef.MFBuiltInPropertyDefClass).ToLower().Equals(Configuration.PERSON_CLASS_NAME))
+            try
             {
+                if (false == isOfClass(env.ObjVerEx, Configuration.PERSON_CLASS_NAME))
+                { return; }
 
 
                 if (false == this.Configuration.ContractManagersUserGroup.IsResolved)
@@ -42,7 +43,7 @@ namespace Acme.Corporation.Storata.Chai.Nge
                 // var RoleList = env.ObjVerEx.GetAllDirectReferences(this.Configuration.SelectMPropertyRoles);
                 var aaroleChange = new ObjVerChanges(env.ObjVerEx).Changed;
                 var roleChange = new ObjVerChanges(env.ObjVerEx).Changed.FirstOrDefault(p => p.PropertyDef == this.Configuration.RolesSelectMProperty);
-                if (roleChange !=null)
+                if (roleChange != null)
                 {
                     switch (roleChange.ChangeType)
                     {
@@ -55,13 +56,18 @@ namespace Acme.Corporation.Storata.Chai.Nge
                             break;
                         case PropertyValueChangeType.Removed:
                             // Handle delete Person.
-                         
+
                             break;
                     }
 
                 }
 
-              //  var roleChange = objVerChanges.FirstOrDefault(p => p.PropertyDef == this.Configuration.RolesSelectMProperty);
+                //  var roleChange = objVerChanges.FirstOrDefault(p => p.PropertyDef == this.Configuration.RolesSelectMProperty);
+
+
+            }
+            catch (Exception ex)
+            {
 
             }
         }
@@ -71,14 +77,17 @@ namespace Acme.Corporation.Storata.Chai.Nge
 
         public void RemoveFromRoles(EventHandlerEnvironment env)
         {
-       
+
             //Applied only to Person class, normally would apply via Attribute 
             //e.g.         [EventHandler(MFEventHandlerType.MFEventHandlerAfterCheckInChangesFinalize, ObjectType = "F.OT.Person", Class = "Class Alias")]
             //but as we're not changing anything in the vault, including adding alias
             //we're setting up a manual check
 
-            if (env.ObjVerEx.GetPropertyText(MFBuiltInPropertyDef.MFBuiltInPropertyDefClass).Equals(Configuration.PERSON_CLASS_NAME))
+            try
             {
+                if (false == isOfClass(env.ObjVerEx, Configuration.PERSON_CLASS_NAME))
+                {return;}
+
                 if (false == this.Configuration.ContractManagersUserGroup.IsResolved)
                 { return; }
 
@@ -95,8 +104,16 @@ namespace Acme.Corporation.Storata.Chai.Nge
                 { return; }
 
 
+
+
+            }
+            catch (Exception ex)
+            {
+
             }
         }
+
+
 
     }
 }
