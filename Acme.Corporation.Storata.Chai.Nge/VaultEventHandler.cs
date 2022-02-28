@@ -12,15 +12,15 @@ namespace Acme.Corporation.Storata.Chai.Nge
     {
         [EventHandler(MFEventHandlerType.MFEventHandlerAfterCheckInChangesFinalize, ObjectType = "MF.OT.Person")]
 
-        public void CheckForName(EventHandlerEnvironment env)
+        public void CheckForRoles(EventHandlerEnvironment env)
         {
-            string PersonClassName= "Person";
+    
             //Applied only to Person class, normally would apply via Attribute 
             //e.g.         [EventHandler(MFEventHandlerType.MFEventHandlerAfterCheckInChangesFinalize, ObjectType = "F.OT.Person", Class = "Class Alias")]
             //but as we're not changing anything in the vault, including adding alia
             //we're setting up a manual check
 
-            if (env.ObjVerEx.GetPropertyText(MFBuiltInPropertyDef.MFBuiltInPropertyDefClass).Equals(PersonClassName))
+            if (env.ObjVerEx.GetPropertyText(MFBuiltInPropertyDef.MFBuiltInPropertyDefClass).ToLower().Equals(Configuration.PERSON_CLASS_NAME))
             {
 
 
@@ -40,28 +40,22 @@ namespace Acme.Corporation.Storata.Chai.Nge
                 { return; }
 
                 // var RoleList = env.ObjVerEx.GetAllDirectReferences(this.Configuration.SelectMPropertyRoles);
-
-                //// Load document (type 0) with ID 1 and version 16 from the vault.
-                //var objVerEx = new ObjVerEx(vault,
-                //    (int)MFBuiltInObjectType.MFBuiltInObjectTypeDocument,
-                //    id: 1,
-                //    version: 16
-                //);
-
-                // Compare the version loaded above (16) with its previous version (probably 15).
+                var aaroleChange = new ObjVerChanges(env.ObjVerEx).Changed;
                 var roleChange = new ObjVerChanges(env.ObjVerEx).Changed.FirstOrDefault(p => p.PropertyDef == this.Configuration.RolesSelectMProperty);
                 if (roleChange !=null)
                 {
                     switch (roleChange.ChangeType)
                     {
                         case PropertyValueChangeType.Added:
-                            // Handle additions.
+                            // Handle New Person.
+                            // 
                             break;
                         case PropertyValueChangeType.Modified:
                             // Handle modified values.
                             break;
                         case PropertyValueChangeType.Removed:
-                            // Handle removed values.
+                            // Handle delete Person.
+                         
                             break;
                     }
 
@@ -71,5 +65,38 @@ namespace Acme.Corporation.Storata.Chai.Nge
 
             }
         }
+
+        [EventHandler(MFEventHandlerType.MFEventHandlerAfterDeleteObject, ObjectType = "MF.OT.Person")]
+        [EventHandler(MFEventHandlerType.MFEventHandlerAfterDestroyObject, ObjectType = "MF.OT.Person")]
+
+        public void RemoveFromRoles(EventHandlerEnvironment env)
+        {
+       
+            //Applied only to Person class, normally would apply via Attribute 
+            //e.g.         [EventHandler(MFEventHandlerType.MFEventHandlerAfterCheckInChangesFinalize, ObjectType = "F.OT.Person", Class = "Class Alias")]
+            //but as we're not changing anything in the vault, including adding alias
+            //we're setting up a manual check
+
+            if (env.ObjVerEx.GetPropertyText(MFBuiltInPropertyDef.MFBuiltInPropertyDefClass).Equals(Configuration.PERSON_CLASS_NAME))
+            {
+                if (false == this.Configuration.ContractManagersUserGroup.IsResolved)
+                { return; }
+
+                if (false == this.Configuration.ExecutiveManagersUserGroup.IsResolved)
+                { return; }
+
+                if (false == this.Configuration.ContractManagerRoleVLItem.IsResolved)
+                { return; }
+
+                if (false == this.Configuration.ExecutiveManagementRoleVLItem.IsResolved)
+                { return; }
+
+                if (false == this.Configuration.RolesSelectMProperty.IsResolved)
+                { return; }
+
+
+            }
+        }
+
     }
 }

@@ -11,6 +11,8 @@ namespace Acme.Corporation.Storata.Chai.Nge
     public class Configuration
     {
 
+       public const string PERSON_CLASS_NAME = "person";
+
         #region Configuration 2.3.1
         [DataMember]
         [JsonConfEditor(DefaultValue = false, Label = "Application Enabled")]

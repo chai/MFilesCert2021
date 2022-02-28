@@ -77,10 +77,10 @@ namespace Acme.Corporation.Storata.Chai.Nge
 
 
 
-
-             _typevalue.SetValue(MFDataType.MFDatatypeText, _szDocumentTitle);
+        //    _objVerEx.SetModifiedBy(env.CurrentUserID);
+            _typevalue.SetValue(MFDataType.MFDatatypeText, _szDocumentTitle);
             
-            //_objVerEx.SetModifiedBy(env.CurrentUserID);
+            
             return _typevalue;
         }
     }
