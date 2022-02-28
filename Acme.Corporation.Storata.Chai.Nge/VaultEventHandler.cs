@@ -21,30 +21,17 @@ namespace Acme.Corporation.Storata.Chai.Nge
             //we're setting up a manual check
             try
             {
-                if (false == isOfClass(env.ObjVerEx, Configuration.PERSON_CLASS_NAME))
-                { return; }
-
-
-                if (false == this.Configuration.ContractManagersUserGroup.IsResolved)
-                { return; }
-
-                if (false == this.Configuration.ExecutiveManagersUserGroup.IsResolved)
-                { return; }
-
-                if (false == this.Configuration.ContractManagerRoleVLItem.IsResolved)
-                { return; }
-
-                if (false == this.Configuration.ExecutiveManagementRoleVLItem.IsResolved)
-                { return; }
-
-                if (false == this.Configuration.RolesSelectMProperty.IsResolved)
-                { return; }
-
-                // var RoleList = env.ObjVerEx.GetAllDirectReferences(this.Configuration.SelectMPropertyRoles);
-                var aaroleChange = new ObjVerChanges(env.ObjVerEx).Changed;
-                var roleChange = new ObjVerChanges(env.ObjVerEx).Changed.FirstOrDefault(p => p.PropertyDef == this.Configuration.RolesSelectMProperty);
-                if (roleChange != null)
+                if (SanityCheckForPersonProperties(env.ObjVerEx))
                 {
+                    // var RoleList = env.ObjVerEx.GetAllDirectReferences(this.Configuration.SelectMPropertyRoles);
+                    var aaroleChange = new ObjVerChanges(env.ObjVerEx).Changed;
+                    var roleChange = new ObjVerChanges(env.ObjVerEx).Changed.FirstOrDefault(p => p.PropertyDef == this.Configuration.RolesSelectMProperty);
+                    if (roleChange == null)
+                    { return; }
+
+                    //Sanity check above. Can start the business logic
+
+
                     switch (roleChange.ChangeType)
                     {
                         case PropertyValueChangeType.Added:
@@ -85,27 +72,13 @@ namespace Acme.Corporation.Storata.Chai.Nge
 
             try
             {
-                if (false == isOfClass(env.ObjVerEx, Configuration.PERSON_CLASS_NAME))
-                {return;}
+                if (SanityCheckForPersonProperties(env.ObjVerEx))
+                {
 
-                if (false == this.Configuration.ContractManagersUserGroup.IsResolved)
-                { return; }
+                    //sanity check above 
+                    //if a person is deleted or destroy check for and remove them from all list to clean up.
 
-                if (false == this.Configuration.ExecutiveManagersUserGroup.IsResolved)
-                { return; }
-
-                if (false == this.Configuration.ContractManagerRoleVLItem.IsResolved)
-                { return; }
-
-                if (false == this.Configuration.ExecutiveManagementRoleVLItem.IsResolved)
-                { return; }
-
-                if (false == this.Configuration.RolesSelectMProperty.IsResolved)
-                { return; }
-
-
-
-
+                }
             }
             catch (Exception ex)
             {
