@@ -24,28 +24,18 @@ namespace Acme.Corporation.Storata.Chai.Nge
                 if (SanityCheckForPersonProperties(env.ObjVerEx))
                 {
                     // var RoleList = env.ObjVerEx.GetAllDirectReferences(this.Configuration.SelectMPropertyRoles);
-                    var aaroleChange = new ObjVerChanges(env.ObjVerEx).Changed;
+                 //   var aaroleChange = new ObjVerChanges(env.ObjVerEx).Changed;
                     var roleChange = new ObjVerChanges(env.ObjVerEx).Changed.FirstOrDefault(p => p.PropertyDef == this.Configuration.RolesSelectMProperty);
+
+
                     if (roleChange == null)
                     { return; }
 
                     //Sanity check above. Can start the business logic
 
+                    //  var listOfChanges= ListOfChanges(roleChange);
 
-                    switch (roleChange.ChangeType)
-                    {
-                        case PropertyValueChangeType.Added:
-                            // Handle New Person.
-                            // 
-                            break;
-                        case PropertyValueChangeType.Modified:
-                            // Handle modified values.
-                            break;
-                        case PropertyValueChangeType.Removed:
-                            // Handle delete Person.
-
-                            break;
-                    }
+                    ResetGroupMembershipAddBasedOnRole(env.Vault, env.ObjVerEx);
 
                 }
 
@@ -74,7 +64,13 @@ namespace Acme.Corporation.Storata.Chai.Nge
             {
                 if (SanityCheckForPersonProperties(env.ObjVerEx))
                 {
+                    var mfiles_User = env.ObjVerEx.GetLookupID(Configuration.MfilesUser);
+                    //var listOfRoles = env.ObjVerEx.GetLookups(Configuration.RolesSelectMProperty);
 
+                    if (mfiles_User != -1 ) 
+                    {
+                        RemoveMemberFromGroup(env.Vault, mfiles_User);
+                    }
                     //sanity check above 
                     //if a person is deleted or destroy check for and remove them from all list to clean up.
 
@@ -86,6 +82,36 @@ namespace Acme.Corporation.Storata.Chai.Nge
             }
         }
 
+        [EventHandler(MFEventHandlerType.MFEventHandlerAfterUndeleteObjectFinalize, ObjectType = "MF.OT.Person")]
+        public void AddBackToRoles(EventHandlerEnvironment env)
+        {
+
+            //Applied only to Person class, normally would apply via Attribute 
+            //e.g.         [EventHandler(MFEventHandlerType.MFEventHandlerAfterCheckInChangesFinalize, ObjectType = "F.OT.Person", Class = "Class Alias")]
+            //but as we're not changing anything in the vault, including adding alias
+            //we're setting up a manual check
+
+            try
+            {
+                if (SanityCheckForPersonProperties(env.ObjVerEx))
+                {
+                    var mfiles_User = env.ObjVerEx.GetLookupID(Configuration.MfilesUser);
+
+
+                    if (mfiles_User != -1)
+                    {
+                        ResetGroupMembershipAddBasedOnRole(env.Vault, env.ObjVerEx);
+                    }
+                    //sanity check above 
+                    //if a person is deleted or destroy check for and remove them from all list to clean up.
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
 
 
     }

@@ -76,6 +76,12 @@ namespace Acme.Corporation.Storata.Chai.Nge
             = "MF.PD.FormerEmployee";
         #endregion
 
+        #region Person
+        [MFPropertyDef(Required = true)]
+        public MFIdentifier MfilesUser { get; set; }
+    = "MF.PD.MfilesUser";
+#endregion
+
 
 
         //      [DataMember]
