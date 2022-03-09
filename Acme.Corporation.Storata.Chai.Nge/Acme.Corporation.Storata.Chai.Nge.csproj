@@ -70,9 +70,10 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateAction.cs" />
     <Compile Include="VaultApplication.cs" />
-    <Compile Include="VaultAutoProperty.cs" />
-    <Compile Include="VaultEventHandler.cs" />
+    <Compile Include="CustomValue.cs" />
+    <Compile Include="EventHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="appdef.xml">

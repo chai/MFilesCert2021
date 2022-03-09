@@ -23,24 +23,24 @@ namespace Acme.Corporation.Storata.Chai.Nge
             {
                 if (SanityCheckForPersonProperties(env.ObjVerEx))
                 {
-                    // var RoleList = env.ObjVerEx.GetAllDirectReferences(this.Configuration.SelectMPropertyRoles);
-                 //   var aaroleChange = new ObjVerChanges(env.ObjVerEx).Changed;
+
+
+                    // var userChange = new ObjVerChanges(env.ObjVerEx).Changed.FirstOrDefault(p => p.PropertyDef == this.Configuration.MfilesUser);
+                    //******* To be complete we shoudl account for a Person M-files user changing.
+                    // E.g. Remove the old M-File User associated with Person from role.
+                    // Add new M-Files User to role, using roleChange = new ObjVerChanges(env.ObjVerEx).Changed;
+                    //
+
                     var roleChange = new ObjVerChanges(env.ObjVerEx).Changed.FirstOrDefault(p => p.PropertyDef == this.Configuration.RolesSelectMProperty);
-
-
                     if (roleChange == null)
                     { return; }
 
-                    //Sanity check above. Can start the business logic
-
-                    //  var listOfChanges= ListOfChanges(roleChange);
-
+                    //Sanity check above. Can start the business logic                    
                     ResetGroupMembershipAddBasedOnRole(env.Vault, env.ObjVerEx);
 
                 }
 
-                //  var roleChange = objVerChanges.FirstOrDefault(p => p.PropertyDef == this.Configuration.RolesSelectMProperty);
-
+                
 
             }
             catch (Exception ex)
@@ -65,7 +65,7 @@ namespace Acme.Corporation.Storata.Chai.Nge
                 if (SanityCheckForPersonProperties(env.ObjVerEx))
                 {
                     var mfiles_User = env.ObjVerEx.GetLookupID(Configuration.MfilesUser);
-                    //var listOfRoles = env.ObjVerEx.GetLookups(Configuration.RolesSelectMProperty);
+
 
                     if (mfiles_User != -1 ) 
                     {
@@ -95,15 +95,16 @@ namespace Acme.Corporation.Storata.Chai.Nge
             {
                 if (SanityCheckForPersonProperties(env.ObjVerEx))
                 {
+                    //sanity check above 
+
                     var mfiles_User = env.ObjVerEx.GetLookupID(Configuration.MfilesUser);
 
-
+                    //if a person is undeleted add back to user group based on role at deletion.
                     if (mfiles_User != -1)
                     {
                         ResetGroupMembershipAddBasedOnRole(env.Vault, env.ObjVerEx);
                     }
-                    //sanity check above 
-                    //if a person is deleted or destroy check for and remove them from all list to clean up.
+
 
                 }
             }

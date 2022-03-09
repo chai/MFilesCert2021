@@ -23,14 +23,7 @@ namespace Acme.Corporation.Storata.Chai.Nge
         Output = szDocumentTitle
          */
 
-        private string SignQuotesTitle(ObjVerEx objVerEx)
-        {
-            if (false == this.Configuration.SubjectTxtProperty.IsResolved)
-            {
-                throw new NotFoundException();
-            }
-            return $"{objVerEx.GetPropertyText(MFBuiltInPropertyDef.MFBuiltInPropertyDefClass)} - {objVerEx.GetPropertyText(Configuration.SubjectTxtProperty)}";
-        }
+
 
         [PropertyCustomValue("MF.PD.ContractTitle")]
         public TypedValue ContractTitle(PropertyEnvironment env)
